@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Tareas</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  	<h1>Registrar Peliculas</h1>
+  	
+  	<br>
+  	<hr>
+  	<br>
+
+	<form action="/RegistrarPelicula" method="POST" enctype="multipart/form-data">
+		<div>
+			<label>TITLE</label> <input name="title" placeholder="MOVIE TITLE"
+				type="text" required/>
+
+		</div>
+
+		<div>
+			<label>MOVIE POSTER</label> <input name="img" type="file"
+				placeholder="MOVIE POSTER" required />
+
+		</div>
+
+		<div>
+			<button type="submit">ADD</button>
+		</div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Tareas</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  	<h1 th:text="${bienvenida}">Hello World</h1>
+    
+    
+    <main>
+    
+		<h2>Login de Usuario</h2>
+		
+		<form action="/login" method="post">
+			
+			<label>User name</label>
+			<input type="text" name="username" placeholder="User"/>
+			
+			<label>Password</label>
+			<input type="password" name="password" placeholder="Password"/>
+			
+			<button type="submit">
+				Join
+			</button>
+		</form>
+		
+		<hr>
+		
+		 <h2>Lista de Usuarios:</h2>
+    <ul>
+        <li th:each="user : ${users}">
+            <p>Username: <span th:text="${user.username}"></span></p> 
+             <p>Password: <span th:text="${user.password}"></span></p> 
+        </li>
+    </ul>
+		
+		    </main>
+</body>
+</html>
