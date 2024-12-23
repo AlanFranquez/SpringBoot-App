@@ -3,37 +3,95 @@
 <head>
     <title>Lista de Tareas</title>
     <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous">
+    
+    <style>
+        .custom-card {
+            min-height: 400px !important;
+            text-align: center!important;
+            margin-right: 10px !important;
+            margin-bottom: 10px !important;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(14.5px);
+            -webkit-backdrop-filter: blur(14.5px);
+            border-radius: 10px;
+            justify-content:center;
+            align-items:center;
+            border: 3px solid white;
+        }
 
-  	<h1>Hola <span th:text="${usuario.username}"></span></h1>
-    
-    
-    <div>
-    	<h2>PELICULAS</h2>
-    
-    	<div>
- 			
- 			<div th:each="m : ${movies}">
- 			
- 				 <div style="border: 1px solid black">
- 				
- 				<a th:href="@{/movies/{id}(id=${m.id})}">
-    			<h6 th:text="${m.getTitulo()}"></h6>
-    			<p th:text="${m.sinopsis}"></p>
-    			<img alt="poster" th:src="${m.getImagen()}">
- 				</a>   
- 				</div>
- 					
-    		</div>
-    	
-    		
-    	</div>
+        .custom-card h4 {
+            height: 70px; /* Controla la altura del título */
+        }
+
+        .custom-card p {
+            height: 100px;
+            margin-bottom: 30px;
+        }
+
+        .custom-card a {
+            text-decoration: none;
+            color: white;
+        }
+        
+        
+        
+        .hoverActive {
+    display: inline;
+    color: white; 
+}
+.custom-card:hover {
+   	background-image: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,1));
+}
+
+.custom-card p {
+	display: none;
+}
+
+.custom-card:hover p{
+	display: block;
+
+}
+
+.custom-card:hover h4{
+	display: none;
+
+}
+
+
+    </style>
+
+</head>
+<body style="color:white; background-color: rgba(0, 0, 0, 0.2); 
+    background-blend-mode: darken; background-image: url('imgs/bg.jpeg'); background-size: cover; background-repeat: no-repeat; min-height: 100vh;">
+
+    <div class="container mt-5">
+        <h4 class="text-center mb-5">We have many movies, check it out!</h4>
+
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-3 custom-card d-flex justify-content-center align-items-center" th:each="m : ${movies}" 
+            	style="background-color: rgba(0,0,0,0.2);"
+                 th:style="'background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' +${m.getImagen()}+ '); background-size: cover; background-position: center center;'">
+                <a th:href="@{/movies/{id}(id=${m.id})}">
+                    <h4 th:text="${m.getTitulo()}"></h4>
+                    <p th:text="${m.sinopsis}"></p>
+                </a>
+            </div>
+        </div>
     </div>
-    
+
     <form action="/logout" method="POST">
-    
-    	<button type="submit">Logout</button>
+        <button type="submit">Logout</button>
     </form>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>

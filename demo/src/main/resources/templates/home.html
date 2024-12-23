@@ -3,39 +3,51 @@
 <head>
     <title>Lista de Tareas</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous">
 </head>
-<body>
 
-  	<h1 th:text="${bienvenida}">Hello World</h1>
-    
-    
-    <main>
-    
-		<h2>Login de Usuario</h2>
-		
-		<form action="/login" method="post">
-			
-			<label>User name</label>
-			<input type="text" name="username" placeholder="User"/>
-			
-			<label>Password</label>
-			<input type="password" name="password" placeholder="Password"/>
-			
-			<button type="submit">
-				Join
-			</button>
-		</form>
-		
-		<hr>
-		
-		 <h2>Lista de Usuarios:</h2>
-    <ul>
-        <li th:each="user : ${users}">
-            <p>Username: <span th:text="${user.username}"></span></p> 
-             <p>Password: <span th:text="${user.password}"></span></p> 
-        </li>
-    </ul>
-		
-		    </main>
+<body style="color:white; background-color: rgba(0, 0, 0, 0.2); /* Black overlay with 50% opacity */
+    background-blend-mode: darken;background-image: url('imgs/bg.jpeg'); background-size: cover; background-repeat: no-repeat; height: 100vh;">
+
+    <div class="container h-100 d-flex align-items-center justify-content-center">
+        <div class="row w-100" style="max-width: 500px;">
+            <div class="col-12 p-4 text-center" 
+                 style="background: rgba(255, 255, 255, 0.05); 
+                        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); 
+                        backdrop-filter: blur(14.5px); 
+                        -webkit-backdrop-filter: blur(14.5px); 
+                        border-radius: 10px; 
+                        border: 1px solid rgba(255, 255, 255, 0.18);">
+                <main>
+                    <h4>LOGIN</h4>
+
+                    <form action="/login" class="text-start" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label text-start">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="User" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" />
+                        </div>
+                        <button type="submit" style="background-color:black; color:white;" class="btn w-100">Join</button>
+                    </form>
+
+
+                    
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>

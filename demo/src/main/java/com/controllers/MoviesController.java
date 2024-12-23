@@ -1,5 +1,7 @@
 package com.controllers;
 
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +29,11 @@ public class MoviesController {
 		}
 		
 		
-		model.addAttribute("tituloPelicula", p.getTitulo());
-		model.addAttribute("descPelicula", p.getSinopsis());
-		model.addAttribute("posterPelicula", p.getImagen());
-		model.addAttribute("fechaPelicula", p.getFecha());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+		String fechaFormateada = p.getFecha().format(formatter);
 		
+		model.addAttribute("movie", p);
+		model.addAttribute("fechaForm", fechaFormateada);
 		return "perfilPelicula";
 	}
 }
