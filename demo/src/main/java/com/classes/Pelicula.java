@@ -16,13 +16,11 @@ public class Pelicula {
 	private String titulo;
 	private LocalDateTime fecha;
 	private String posterImagen;
-	
-	@ManyToOne
-    @JoinColumn(name = "usuario_id")  // Este campo es la clave foránea que apunta al Usuario
-    private Usuario usuario;
+	private String sinopsis;
 	
 	
-	public Pelicula(String titulo, String posterImagen, Usuario u) {
+	
+	public Pelicula(String titulo, String posterImagen, String sinopsis) {
 		Random r = new Random();
 		
 		
@@ -30,7 +28,7 @@ public class Pelicula {
 		this.setTexto(titulo);
 		this.setFecha(LocalDateTime.now());
 		this.setImagen(posterImagen);
-		this.setUsuario(u);;
+		this.sinopsis = sinopsis;
 	}
 
 	public Pelicula() {
@@ -38,17 +36,14 @@ public class Pelicula {
 	}
 
 
+	public String getSinopsis() {
+		return this.sinopsis;
+	}
 	public long getId() {
 		return id;
 	}
 	
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-	
-	public void setUsuario(Usuario u) {
-		this.usuario = u;
-	}
+
 	
 	public String getImagen() {
 		return this.posterImagen;

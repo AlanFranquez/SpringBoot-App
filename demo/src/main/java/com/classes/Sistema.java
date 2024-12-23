@@ -7,11 +7,15 @@ public class Sistema {
 
 	private static Sistema instancia = null;
 	private List<Usuario> usuarios;
+	private List<Pelicula> peliculas;
 	
 	
 	public Sistema() {
 		this.usuarios = new ArrayList<Usuario>();
 	}
+	
+	public List<Pelicula> getPeliculas() {
+		return this.peliculas;	}
 	
 	public static Sistema getInstance() {
 		if(instancia == null) {
@@ -28,5 +32,9 @@ public class Sistema {
 	
 	public void addUsuario(Usuario u) {
 		this.usuarios.add(u);
+	}
+	
+	public void addPeliculas(Pelicula p1) {
+		this.peliculas.add(p1);
 	}
 }

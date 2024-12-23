@@ -28,7 +28,7 @@ public class Usuario {
 	
 	private String password;
 	
-	 @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	 @OneToMany
 	 private List<Pelicula> peliculas;  // Colección de películas del usuario
 
 	

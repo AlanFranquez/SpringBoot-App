@@ -36,9 +36,11 @@ public class HomeController {
         }
         
         List<Usuario> users = entityManager.createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList();
-      
+        List<Pelicula> movies = entityManager.createQuery("SELECT p FROM Pelicula p", Pelicula.class).getResultList();
+        
         model.addAttribute("bienvenida", bienvenida);
         model.addAttribute("users", users);
+        model.addAttribute("movies", movies);
         return "home";  // Retorna la vista 'home'
     }
     
@@ -67,8 +69,11 @@ public class HomeController {
         if (usuarioLogueado == null) {
             return "redirect:/home"; 
         }
+        
+        List<Pelicula> movies = entityManager.createQuery("SELECT p FROM Pelicula p", Pelicula.class).getResultList();
 
         model.addAttribute("usuario", usuarioLogueado);
+        model.addAttribute("movies",movies);
         return "homeLogueado"; 
     }
     

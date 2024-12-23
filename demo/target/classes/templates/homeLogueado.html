@@ -8,9 +8,28 @@
 
   	<h1>Hola <span th:text="${usuario.username}"></span></h1>
     
-    <h1>Lista de Peliculas que has visto 🎥</h1>
     
+    <div>
+    	<h2>PELICULAS</h2>
     
+    	<div>
+ 			
+ 			<div th:each="m : ${movies}">
+ 			
+ 				 <div style="border: 1px solid black">
+ 				
+ 				<a th:href="@{/movies/{id}(id=${m.id})}">
+    			<h6 th:text="${m.getTitulo()}"></h6>
+    			<p th:text="${m.sinopsis}"></p>
+    			<img alt="poster" th:src="${m.getImagen()}">
+ 				</a>   
+ 				</div>
+ 					
+    		</div>
+    	
+    		
+    	</div>
+    </div>
     
     <form action="/logout" method="POST">
     

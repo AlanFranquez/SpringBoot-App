@@ -36,7 +36,7 @@ public class RegistrarPelicula {
 
     @PostMapping("/RegistrarPelicula")
     @Transactional
-    public String RegistrarPeliculaPOST(HttpSession session, @RequestParam("img") MultipartFile image, @RequestParam("title") String title) throws IOException {
+    public String RegistrarPeliculaPOST(HttpSession session, @RequestParam("img") MultipartFile image, @RequestParam("title") String title, String sinopsis) throws IOException {
         if (session == null || session.getAttribute("usuarioLogueado") == null) {
             System.out.print("El usuario no se encuentra logueado");
             return "redirect:/login";
@@ -65,7 +65,7 @@ public class RegistrarPelicula {
         
         
 
-        Pelicula nuevaPelicula = new Pelicula(title, imagePath, u);
+        Pelicula nuevaPelicula = new Pelicula(title, imagePath, sinopsis);
         entityManager.persist(nuevaPelicula);
 
         return "redirect:/home"; 
