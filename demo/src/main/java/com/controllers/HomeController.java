@@ -37,7 +37,9 @@ public class HomeController {
         
         List<Usuario> users = entityManager.createQuery("SELECT u FROM Usuario u", Usuario.class).getResultList();
         List<Pelicula> movies = entityManager.createQuery("SELECT p FROM Pelicula p", Pelicula.class).getResultList();
-        
+
+
+
         model.addAttribute("bienvenida", bienvenida);
         model.addAttribute("users", users);
         model.addAttribute("movies", movies);

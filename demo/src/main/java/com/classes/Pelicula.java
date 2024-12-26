@@ -1,12 +1,11 @@
 package com.classes;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Pelicula {
@@ -17,6 +16,9 @@ public class Pelicula {
 	private LocalDateTime fecha;
 	private String posterImagen;
 	private String sinopsis;
+
+	@OneToMany
+	private List<Review> reviews;
 	
 	
 	
@@ -29,12 +31,21 @@ public class Pelicula {
 		this.setFecha(LocalDateTime.now());
 		this.setImagen(posterImagen);
 		this.sinopsis = sinopsis;
+		this.reviews = new ArrayList<Review>();
 	}
 
 	public Pelicula() {
 		
 	}
 
+
+	public List<Review> getReviews() {
+		return this.reviews;
+	}
+
+	public void addReview(Review r) {
+		this.reviews.add(r);
+	}
 
 	public String getSinopsis() {
 		return this.sinopsis;
