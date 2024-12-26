@@ -9,45 +9,111 @@
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
 </head>
+
+<style>
+	.custom-card {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    overflow: hidden;
+    height: 350px;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+.custom-card:hover h4{
+    color: white;
+}
+
+
+
+.custom-card a h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.custom-card a p {
+    font-size: 14px;
+    margin: 0;
+}
+
+	.custom-card:hover p{
+    color: white;
+}
+
+
+</style>
 <body style="padding: 0; margin: 0;background-color: #111111;">
-	<div class="container"> 
-		<div class="mt-5">
-			<h4 class="text-center" th:text="${user.getUsername()}" style="color: white"></h4>
-			
-			<br>
-			<hr style="border: 1px solid white">
-			<br>
-			
-			
-		</div>
-	
-		<div th:if="${user.getMovies().size() > 0}">
-			<p style="color: white">MY MOVIES</p>
-			
-			
-			<div class="row d-flex justify-content-center align-items-center">
-			<div
-				class="col-md-3 custom-card d-flex justify-content-center align-items-center"
-				th:each="m : ${user.getMovies()}"
-				style="background-color: rgba(0, 0, 0, 0.2);"
-				th:style="'background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' +${m.getImagen()}+ '); background-size: cover; background-position: center center;'">
-				<a th:href="@{/movies/{id}(id=${m.id})}">
-					<h4 th:text="${m.getTitulo()}"></h4>
-					<p th:text="${m.sinopsis}"></p>
-				</a>
+<div class="container">
+	<div class="mt-5 row">
+
+		<div class="">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-md-3 p-0 m-0 text-center">
+					<img
+							style="border: 3px solid white; border-radius: 50%; height: 200px; width: 200px; object-fit: cover; overflow: hidden;"
+							th:src="${user.getImage()}"
+							alt="User image">
+				</div>
+				<div class="col-md-8 mt-5">
+					<h4 class="text-left" style="color: white">Hi, <span th:text="${user.getUsername()}"></span>. We hope you're doing great 👋</h4>
+					<p style="color: white">Check your movies, and don't forget to leave a review!</p>
+				</div>
 			</div>
-		</div>
-		
-		<div th:if="${user.getMovies().size == 0}">
-			<p style="color: white">You not have any movie here yet!</p>
-		
-		</div>
-		
-		
+
 
 		</div>
-	
+
+
+
 	</div>
+	<br>
+	<hr style="border: 1px solid white">
+	<br>
+		<div th:if="${user.getMovies().size() > 0}">
+			<h3 style="color: white">My Movies</h3>
+
+
+			<div class="row g-4 justify-content-center align-items-center">
+				<div class="col-md-4" th:each="m : ${user.getMovies()}">
+					<div
+							class="custom-card d-flex flex-column justify-content-end align-items-start"
+							th:style="'background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + ${m.getImagen()} + '); background-size: cover; background-position: center center;'">
+						<a th:href="@{/movies/{id}(id=${m.id})}" style="text-decoration: none; color: inherit; width: 100%; padding: 15px;">
+							<h4 th:text="${m.getTitulo()}"></h4>
+							<p th:text="${m.getSinopsis()}"></p>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div th:if="${user.getMovies().size == 0}">
+			<p style="color: white">You not have any movie here yet!</p>
+
+		</div>
+
+
+
+		</div>
+
+	</div>
+<!-- REVIEWS -->
+<div class="footer mt-5 pt-5 pb-5" style="background: rgba( 25, 25, 25, 0.15 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 18px );
+-webkit-backdrop-filter: blur( 18px ); border-top: 1px solid white;">
+	<div class="container " >
+		<p class="text-center" style="color: white">Alan Fránquez</p>
+
+		<p class="text-center mb-5" style="color: white">Todos los derechos reservados</p>
+
+	</div>
+</div>
 </body>
 
 
