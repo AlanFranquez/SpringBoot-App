@@ -63,6 +63,10 @@ public class HomeController {
        return "redirect:/homeLogueado";
     }
     
+    @GetMapping("/test")
+    public String test() {
+    	return "test";
+    }
     @GetMapping("/homeLogueado")
     public String homeLogueado(HttpSession session, Model model) {
         Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
@@ -74,6 +78,7 @@ public class HomeController {
 
         model.addAttribute("usuario", usuarioLogueado);
         model.addAttribute("movies",movies);
+        model.addAttribute("user", usuarioLogueado);
         return "homeLogueado"; 
     }
     

@@ -53,11 +53,15 @@ public class Usuario {
 	}
 	
 	public List<Pelicula> getMovies() {
-		return null;
+		return this.peliculas;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public long getId() {
+		return this.Id;
 	}
 
 	public String getUsername() {
