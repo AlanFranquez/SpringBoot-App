@@ -20,7 +20,7 @@
                         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); 
                         backdrop-filter: blur(14.5px); 
                         -webkit-backdrop-filter: blur(14.5px); 
-                        border-radius: 10px; 
+                        border-radius: 10px 10px 0 0 ; 
                         border: 1px solid rgba(255, 255, 255, 0.18);">
                 <div class="row d-flex align-items-center justify-content-center">
                 	<div class="col-md-5" >
@@ -53,11 +53,48 @@
                 
                 </div>
             </div>
-        </div>
-    </div>
+            <div>
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-md-12">
+                        <div class="p-4 text-left" 
+                             style="background-color: #111111">
+                            <h4 class="">Reviews</h4>
+                            <hr>
 
-	<!-- REVIEWS -->
-	<div class="footer mt-5 pt-5 pb-5" style="background: rgba( 25, 25, 25, 0.15 );
+                            <p th:if="${movie.getReviews().size() == 0}" class="mt-2 mb-2">Be the first one in add a review about this movie! 🎥
+                            </p>
+
+                            <form class="form mt-2 mb-2 d-block" action="" method="POST">
+
+                                <label class="d-block" for="texto">Opinión de la pelicula </label>
+                                <textarea name="texto" class="d-block w100" style="width: 400px; border-radius: 5px; height: 250px;" aria-setsize="disabled" placeholder="Para mi..."></textarea>
+
+                                <button type="submit" class="btn btn-primary">SUBMIT!</button>
+                            </form>
+
+                            <div th:if="${movie.getReviews().size() > 0}">
+
+
+                            </div>
+                </div>
+             </div>
+        </div>
+        
+
+        
+    </div>
+    
+
+     
+
+
+
+
+	
+	</div>
+</div>
+
+<div class="footer mt-5 pt-5 pb-5" style="background: rgba( 25, 25, 25, 0.15 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 backdrop-filter: blur( 18px );
 -webkit-backdrop-filter: blur( 18px ); border-top: 1px solid white;">
@@ -67,10 +104,6 @@ backdrop-filter: blur( 18px );
 			<p class="text-center mb-5">Todos los derechos reservados</p>
 
 		</div>
-	</div>
-</div>
-
-
 </body>
 
 

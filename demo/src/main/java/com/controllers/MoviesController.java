@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.classes.Pelicula;
 import com.classes.Usuario;
 
-import ch.qos.logback.core.model.Model;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpSession;

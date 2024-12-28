@@ -1,16 +1,12 @@
 package com.controllers;
 
-import java.net.http.HttpClient;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.classes.Pelicula;
 import com.classes.Usuario;
 
-import ch.qos.logback.core.model.Model;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpSession;
