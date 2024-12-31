@@ -27,6 +27,7 @@ public class HomeController {
     @Transactional
     public String home(HttpSession session, Model model) {
         String bienvenida = "Welcome, testing deploying with Spring Boot";
+
         
         if(session == null || session.getAttribute("usuarioLogueado") == null) {
         	System.out.print("El usuario no se encuentra logueado");

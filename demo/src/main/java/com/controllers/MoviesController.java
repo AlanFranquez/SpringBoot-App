@@ -1,14 +1,21 @@
 package com.controllers;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.classes.Pelicula;
+import com.classes.Review;
 import com.classes.Usuario;
 
 import jakarta.persistence.EntityManager;
@@ -62,7 +69,7 @@ public class MoviesController {
 	
 	@PostMapping("/movies/{id}")
 	@Transactional
-	public String addMovie(HttpSession session, org.springframework.ui.Model model, @PathVariable long id) {
+	public String addMovie(HttpSession session, org.springframework.ui.Model model, @PathVariable long id, @RequestParam("text") String text) {
 		
 		Pelicula p = em.find(Pelicula.class, id);
 		
@@ -84,7 +91,37 @@ public class MoviesController {
 		
 		uDB.addPelicula(p);
 		
-		
+		model.addAttribute("id", uDB.getId());
 		return "redirect:/profile/" + uDB.getId();
+	}
+
+	@PostMapping("/movies/review/{id}")
+	@Transactional
+	@ResponseBody
+	public  ResponseEntity<Map<String, Object>> addReview(HttpSession session, Model m, @PathVariable long id, @RequestParam("text") String text) {
+		
+		Usuario u = (Usuario) session.getAttribute("usuarioLogueado");
+
+		Usuario usDB = em.find(Usuario.class, u.getId());
+
+		Pelicula p = em.find(Pelicula.class, id); 
+		
+		Review r = new Review(text, usDB);
+
+		usDB.addReview(r);
+		p.addReview(r);
+
+		em.persist(r);
+
+		Map<String, Object> jsonPersonalizado = new HashMap<>();
+
+		jsonPersonalizado.put("likes", r.getLikes());
+		jsonPersonalizado.put("author", r.getAuthor().getUsername());
+		jsonPersonalizado.put("authorImage", r.getAuthor().getImage());
+		jsonPersonalizado.put("text", r.getText());
+		jsonPersonalizado.put("id", r.getId());
+		jsonPersonalizado.put("date", r.getFormattedDate());
+
+		return ResponseEntity.ok(jsonPersonalizado);
 	}
 }

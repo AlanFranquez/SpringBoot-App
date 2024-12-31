@@ -10,14 +10,12 @@
         crossorigin="anonymous">
 </head>
 <body style="padding: 0; margin: 0">
-<div style="color:white; background-color: rgba(0, 0, 0, 0.2); /* Black overlay with 50% opacity */
-    background-blend-mode: darken;background-image: url('/imgs/bg.jpeg'); background-size: cover; background-repeat: no-repeat; min-height: 100vh;">
+<div style="color:white; background-color: #110f0f">
 
     <div class="container h-100 d-flex align-items-center justify-content-center">
         <div class="mb-5">
             <div class="p-4 text-center" 
-                 style="background: rgba(255, 255, 255, 0.05); 
-                        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); 
+                 style="background: rgba(255, 255, 255, 0.05);
                         backdrop-filter: blur(14.5px); 
                         -webkit-backdrop-filter: blur(14.5px); 
                         border-radius: 10px 10px 0 0 ; 
@@ -42,7 +40,7 @@
                 			
                 			<div th:if="${added == false}">
                 			<form th:action="@{/movies/{id}(id=${movie.id})}" method="post">
-                			
+                			<div id="movie" th:attr="data-id=${movie.id}"></div>
 							<button class="btn btn-secondary" type="submit" style="background-color: green;">Add Movie 📚</button>
                 			</form>
                 			
@@ -64,17 +62,32 @@
                             <p th:if="${movie.getReviews().size() == 0}" class="mt-2 mb-2">Be the first one in add a review about this movie! 🎥
                             </p>
 
-                            <form class="form mt-2 mb-2 d-block" action="" method="POST">
-
-                                <label class="d-block" for="texto">Opinión de la pelicula </label>
-                                <textarea name="texto" class="d-block w100" style="width: 400px; border-radius: 5px; height: 250px;" aria-setsize="disabled" placeholder="Para mi..."></textarea>
-
+                            <form id="reviewForm">
+                                <textarea name="text" id="textReview" class="d-block w100"
+                                    style="color: white; background-color: #111111; width: 600px; border-radius: 5px; height: 200px;"
+                                    placeholder="Escribe tu review aquí..."></textarea>
                                 <button type="submit" class="btn btn-primary">SUBMIT!</button>
                             </form>
 
-                            <div th:if="${movie.getReviews().size() > 0}">
-
-
+                            <div class="reviews-container">
+                                <!-- Aquí se mostrarán las reviews existentes -->
+                                <div th:each="r : ${movie.getReviews()}">
+                                    <div style="border-radius: 5px; padding: 10px;" th:id="${r.getId()}">
+                                        <hr>
+                                        <div class="d-flex" style="gap: 20px; align-items: center;">
+                                            <img style="height: 70px; width: 70px; border-radius: 50px; border: 3px solid white"
+                                                th:src="${r.getAuthor().getImage()}" alt="Author Avatar">
+                                            <div>
+                                                <p style="font-weight: bold;" th:text="${r.getAuthor().getUsername()}"></p>
+                                                <p style="color:gray;" th:text="${r.getFormattedDate()}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p th:text="${r.getText()}"></p>
+                                            <p>🤍 <span th:text="${r.getLikes()}"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                 </div>
              </div>
@@ -106,6 +119,85 @@ backdrop-filter: blur( 18px );
 		</div>
 </body>
 
+
+    <script>
+        const form = document.querySelector('#reviewForm');
+        const textReview = document.querySelector('#textReview');
+        const movie = document.querySelector('#movie');
+        const movieId = movie.getAttribute('data-id');
+
+        form.addEventListener('submit', async(e) => {
+            e.preventDefault();
+
+            const formData = new URLSearchParams();
+            formData.append('text', textReview.value);
+            formData.append('id', movieId);
+           
+            console.log(formData);
+
+            try {
+                const data = await fetch(`/movies/review/${movieId}`, {
+
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: formData
+                });
+
+
+
+                if(data.ok) {
+                    const rsp = await data.json();
+                    const rContainer = document.querySelector('.reviews-container');
+                    console.log(rsp);
+               
+                    rContainer.innerHTML += `
+                                    <div style="border-radius: 5px; padding: 10px;" id="review-${rsp.id}">
+                                        <hr>
+                                        <div class="d-flex" style="gap: 20px; align-items: center;">
+                                            <img style="height: 70px; width: 70px; border-radius: 50px; border: 3px solid white"
+                                                src="${rsp.authorImage}" alt="Author Avatar">
+                                            <div>
+                                                <p style="font-weight: bold;">${rsp.author}</p>
+                                                <p style="color:gray;">${rsp.date}</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p>${rsp.text}</p>
+                                            <p>🤍 <span>${rsp.likes}</span></p>
+                                        </div>
+                                    </div>
+                    
+                    `;
+
+                    textReview.value = '';
+
+                    const lastAdded = document.querySelector(`#review-${rsp.id}`);
+            if (lastAdded) {
+                lastAdded.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
+            // Actualizar la URL para que apunte a la nueva review (opcional)
+            window.location.hash = `review-${rsp.id}`;
+                    //window.location.href = rsp.id;
+                } else {    
+                    console.log('Se ha producido un error');
+                }
+
+            } catch(error) {
+                console.log(error);
+            }
+        });
+       
+
+
+
+
+    </script>
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

@@ -25,7 +25,7 @@ public class Usuario {
 	 @OneToMany
 	 private List<Pelicula> peliculas;  // Colección de películas del usuario
 
-	@OneToMany
+	@OneToMany(mappedBy="author")
 	private List<Review> reviews;
 	
 	public Usuario(String username, String password, String image) {
