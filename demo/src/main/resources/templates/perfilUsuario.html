@@ -90,6 +90,33 @@
 				</div>
 			</div>
 
+			<br>
+			<hr style="border: 1px solid white">
+			<br>
+				<div th:if="${user.getReview().size() > 0}">
+					<h3 style="color: white">My Reviews</h3>
+		
+		
+					<div class="row g-4 justify-content-center align-items-center">
+						<div class="col-md-4" th:each="r : ${user.getReview()}">
+							<div style="border-radius: 5px; padding: 10px;" th:id="${r.getId()}">
+								<hr>
+								<div class="d-flex" style="gap: 20px; align-items: center;">
+									<img style="height: 70px; width: 70px; border-radius: 50px; border: 3px solid white"
+										th:src="${r.getAuthor().getImage()}" alt="Author Avatar">
+									<div>
+										<p style="font-weight: bold;" th:text="${r.getAuthor().getUsername()}"></p>
+										<p style="color:gray;" th:text="${r.getFormattedDate()}"></p>
+									</div>
+								</div>
+								<div class="mt-2">
+									<p th:text="${r.getText()}"></p>
+									<p>🤍 <span th:text="${r.getLikes()}"></span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+
 		</div>
 
 		<div th:if="${user.getMovies().size == 0}">
